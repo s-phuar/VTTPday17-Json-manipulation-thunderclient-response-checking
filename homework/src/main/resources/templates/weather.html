@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form method="GET" action="/weather" data-th-object="${weather}">
+        <h1>Weather for: <span data-th-text="${weather.cityName}"></span></h1>
+        <h2>Weather description: <span data-th-text="${weather.weatherDescription}"></span></h2>
+        <img data-th-src="${weather.imageUrl}">
+        
+        <label>Choose temperature unit:</label>
+        <select name="choice">
+            <option value="kelvin" selected>Kelvin</option>
+            <option value="metric">Metric (°C)</option>
+            <option value="imperial">Imperial (°F)</option>
+        </select>
+
+        <!-- Hidden Inputs to Submit Weather Object Data -->
+        <input type="hidden" name="cityName" th:value="${weather.cityName}">
+        <input type="hidden" name="weatherDescription" th:value="${weather.weatherDescription}">
+        <input type="hidden" name="imageUrl" th:value="${weather.imageUrl}">
+        <input type="hidden" name="kelvinTemp" th:value="${weather.kelvinTemp}">
+        <input type="hidden" name="metricTemp" th:value="${weather.metricTemp}">
+        <input type="hidden" name="imperialTemp" th:value="${weather.imperialTemp}">
+
+        
+        <h3>The temperature is: </h3>
+        <p th:if="${choice == 'kelvin'}" data-th-text="${weather.kelvinTemp} + ' K'"></p>
+        <p th:if="${choice == 'metric'}" data-th-text="${weather.metricTemp} + ' °C'"></p>
+        <p th:if="${choice == 'imperial'}" data-th-text="${weather.imperialTemp} + ' °F'"></p>        
+
+        <button type="submit">go</button>
+    </form>
+
+    <a href="/">back</a>
+</body>
+</html>
